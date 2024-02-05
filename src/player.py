@@ -15,19 +15,19 @@ class Player:
             platform_group (platform.sprite.group): The group including the platform sprites
         """
         self.image = pygame.transform.scale(
-            char_image, (45, 45))  # Skapar gubben och anpassar storleken
-        # Gubbens höjd och bredd
+            char_image, (45, 45))  # Creates the charachter and adapts the size
+        # Charchters height and width
         self.width = 25
         self.height = 40
         self.rect = pygame.Rect(0, 0, self.width, self.height)
 
-        self.rect.center = (x, y)  # Centrerar gubben på sin kordinat
+        self.rect.center = (x, y)  # Centers the charchters on the coordinates
 
-        # hastighet & riktning
+        # Velocity and direction
         self.vel_y = 0
         self.flip = False
 
-        # Nya variabler jag behövde skapa för att flytta Player till en ny fil
+        # New variables 
         self.scroll_thresh = 200
         self.gravity = gravity
         self.screen_width = screen_width
@@ -35,17 +35,17 @@ class Player:
         self.screen = screen
 
     def move(self) -> None:
-        """_summary_
+        """Handles player movement 
 
         Returns:
             Int: The verticial scorlling amount
         """
-        # Återställer variabler
+        # Resets the variables
         scroll = 0
         dx = 0
         dy = 0
 
-        # Hanterar knappttryck
+        # Handles key pressing
         key = pygame.key.get_pressed()
         if key[pygame.K_a]:
             dx = -10
@@ -54,28 +54,26 @@ class Player:
             dx = 10
             self.flip = False
 
-        # Spelets gravitation
+        # The games gravity
         self.vel_y += self.gravity
         dy += self.vel_y
 
-        # Gör så att spelar inte kan hamna utanför spelets fönster
+        # Makes so the player cant go outside the games screen
         if self.rect.left + dx < 0:
             dx = -self.rect.left
         if self.rect.right + dx > self.screen_width:
             dx = self.screen_width - self.rect.right
 
-        # Kollar ifall spelar nuddar plattformarna
+        # Checks if the player is on a platform and if the player is above
         for platform in self.platform_group:
-            # Kollar i y
             if platform.rect.colliderect(self.rect.x, self.rect.y + dy, self.width, self.height):
-                # Kollar om den är ovanför
                 if self.rect.bottom < platform.rect.centery:
                     if self.vel_y > 0:
                         self.rect.bottom = platform.rect.top
                         dy = 0
                         self.vel_y = -20
 
-        # Ser ifall gubben nått toppen av skärmen
+        # Checks if the player has reached the top of the screen
         if self.rect.top <= self.scroll_thresh:
             if self.vel_y < 0:
                 scroll = -dy
@@ -86,6 +84,11 @@ class Player:
         return scroll
 
     def draw(self) -> None:
+        """
+        Draws the game
+        
+        Draws a white rectangle around the image object
+        """
         self.screen.blit(pygame.transform.flip(
             self.image, self.flip, False), (self.rect.x - 12, self.rect.y - 5))
         pygame.draw.rect(self.screen, WHITE, self.rect, 2)
