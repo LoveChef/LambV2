@@ -5,6 +5,15 @@ WHITE = (255, 255, 255)
 
 class Player:
     def __init__(self, x, y, gravity, char_image, screen, screen_width, platform_group) -> None:
+        """Initialze the player
+
+        Args:
+            x (int): The x coordinate of the player
+            y (int): The y coordinate of the player
+            gravity (float): The gravity effecting the players jumping distance
+            screen_width (int): The width of the screen
+            platform_group (platform.sprite.group): The group including the platform sprites
+        """
         self.image = pygame.transform.scale(
             char_image, (45, 45))  # Skapar gubben och anpassar storleken
         # Gubbens höjd och bredd
@@ -26,6 +35,11 @@ class Player:
         self.screen = screen
 
     def move(self) -> None:
+        """_summary_
+
+        Returns:
+            Int: The verticial scorlling amount
+        """
         # Återställer variabler
         scroll = 0
         dx = 0
