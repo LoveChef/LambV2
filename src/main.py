@@ -66,8 +66,7 @@ def draw_bg(bg_scroll) -> None:
 platform_group = pygame.sprite.Group()
 
 # Player instance
-char = Player(screen_width // 2, screen_height - 150, gravity,
-              char_image, screen, screen_width, platform_group)
+char = Player(screen_width // 2, screen_height - 150, gravity, char_image, screen, screen_width, platform_group)
 
 # Creates platform
 platform = Platform(screen_width // 2 - 50, screen_height -
