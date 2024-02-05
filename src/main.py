@@ -54,7 +54,7 @@ def draw_text(text, font, text_col, x, y) -> None:
     img = font.render(text, True, text_col)
     screen.blit(img, (x, y))
 
-# Draws the background
+# Draws the background§
 
 
 def draw_bg(bg_scroll) -> None:
