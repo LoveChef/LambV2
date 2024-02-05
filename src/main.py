@@ -62,19 +62,19 @@ def draw_bg(bg_scroll) -> None:
     screen.blit(bg_image, (0, -600 + bg_scroll))
 
 
-# Skapar sprite gruppen för plattformen
+# Creates the sprite for the platforms
 platform_group = pygame.sprite.Group()
 
-# Spelar instans
+# Player instance
 char = Player(screen_width // 2, screen_height - 150, gravity,
               char_image, screen, screen_width, platform_group)
 
-# Skapar plattformen
+# Creates platform
 platform = Platform(screen_width // 2 - 50, screen_height -
                     50, 100, screen_height, platform_image)
 platform_group.add(platform)
 
-# Spelets main loop
+# Main loop
 run = True
 while run:
 
@@ -83,29 +83,28 @@ while run:
     if game_over == False:
         scroll = char.move()
 
-        # "Ritar ut" bakgrunden i fönstret
+        # Draws the background in the window
         bg_scroll += scroll
         if bg_scroll >= 600:
             bg_scroll = 0
         draw_bg(bg_scroll)
 
-        # Generera plattformen som gubben hoppar på
+        # Generates the platform the charachter jumps on
         if len(platform_group) < max_platforms:
-            # jag gjorde platformerna lite större från 40, 60 till 60, 80 (kan ändras sen om det behövs)
             p_w = random.randint(60, 80)
             p_x = random.randint(0, screen_width - p_w)
             p_y = platform.rect.y - random.randint(80, 120)
             platform = Platform(p_x, p_y, p_w, screen_height, platform_image)
             platform_group.add(platform)
 
-        # Uppdaterar plattformarna ju längre upp i spelet man kommer
+        # Updates the platforms the further you go up
         platform_group.update(scroll)
 
-        # Ritar ut platform spritesen
+        # Draws the sprites
         platform_group.draw(screen)
         char.draw()
 
-        # Checkart om spelet är över eller inte
+        # Checks if the game is over
         if char.rect.top > screen_height:
             game_over = True
     else:
@@ -121,21 +120,18 @@ while run:
         draw_text('Klicka SPACE för att köra igen', font_big, white, 40, 300)
         key = pygame.key.get_pressed()
         if key[pygame.K_SPACE]:
-            # Återställer värdena när spelet tar slut
+            # Resets the platforms when the game is over
             game_over = False
             score = 0
             scroll = 0
             fade_counter = 0
-            # Flyttar tillbaka gubben till början av spelet
             char.rect.center = (screen_width // 2, screen_height - 150)
-            # Tar bort och återställer de gamla plattformarna
             platform_group.empty()
-            # Skapar en ny startplattform
             platform = Platform(screen_width // 2 - 50,
                                 screen_height - 50, 100, screen_height, platform_image)
             platform_group.add(platform)
 
-    # Event handelr
+    # Event handler
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
