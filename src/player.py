@@ -1,17 +1,14 @@
 import pygame
 
-WHITE = (255, 255, 255)
-
+from constants import SCREEN_WIDTH, WHITE, GRAVITY
 
 class Player:
-    def __init__(self, x, y, gravity, char_image, screen, screen_width, platform_group) -> None:
+    def __init__(self, x, y, char_image, screen, platform_group) -> None:
         """Initialze the player
 
         Args:
             x (int): The x coordinate of the player
             y (int): The y coordinate of the player
-            gravity (float): The gravity effecting the players jumping distance
-            screen_width (int): The width of the screen
             platform_group (platform.sprite.group): The group including the platform sprites
         """
         self.image = pygame.transform.scale(
@@ -25,12 +22,10 @@ class Player:
 
         # Velocity and direction
         self.vel_y = 0
-        self.flip = False
+        self.flip = True
 
         # New variables 
         self.scroll_thresh = 200
-        self.gravity = gravity
-        self.screen_width = screen_width
         self.platform_group = platform_group
         self.screen = screen
 
@@ -49,20 +44,20 @@ class Player:
         key = pygame.key.get_pressed()
         if key[pygame.K_a]:
             dx = -10
-            self.flip = True
+            self.flip = False
         if key[pygame.K_d]:
             dx = 10
-            self.flip = False
+            self.flip = True
 
         # The games gravity
-        self.vel_y += self.gravity
+        self.vel_y += GRAVITY
         dy += self.vel_y
 
         # Makes so the player cant go outside the games screen
         if self.rect.left + dx < 0:
             dx = -self.rect.left
-        if self.rect.right + dx > self.screen_width:
-            dx = self.screen_width - self.rect.right
+        if self.rect.right + dx > SCREEN_WIDTH:
+            dx = SCREEN_WIDTH - self.rect.right
 
         # Checks if the player is on a platform and if the player is above
         for platform in self.platform_group:
