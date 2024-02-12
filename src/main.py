@@ -49,9 +49,9 @@ font_big = pygame.font.SysFont('Times New Roman', 24)
 
 # Loads the images
 char_image = pygame.image.load(
-    'assets/placeholder_charachter.png').convert_alpha()
-bg_image = pygame.image.load('assets/background.jpg').convert_alpha()
-platform_image = pygame.image.load('assets/platform.png').convert_alpha()
+    '../assets/charachter.png').convert_alpha()
+bg_image = pygame.image.load('../assets/background.jpg').convert_alpha()
+platform_image = pygame.image.load('../assets/platform.png').convert_alpha()
 
 
 # Function that shows the text

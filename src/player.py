@@ -14,8 +14,8 @@ class Player:
         self.image = pygame.transform.scale(
             char_image, (45, 45))  # Creates the charachter and adapts the size
         # Charchters height and width
-        self.width = 25
-        self.height = 40
+        self.width = 50
+        self.height = 80
         self.rect = pygame.Rect(0, 0, self.width, self.height)
 
         self.rect.center = (x, y)  # Centers the charchters on the coordinates
@@ -82,8 +82,6 @@ class Player:
         """
         Draws the game
         
-        Draws a white rectangle around the image object
         """
         self.screen.blit(pygame.transform.flip(
             self.image, self.flip, False), (self.rect.x - 12, self.rect.y - 5))
-        pygame.draw.rect(self.screen, WHITE, self.rect, 2)
