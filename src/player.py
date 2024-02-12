@@ -12,10 +12,10 @@ class Player:
             platform_group (platform.sprite.group): The group including the platform sprites
         """
         self.image = pygame.transform.scale(
-            char_image, (45, 45))  # Creates the charachter and adapts the size
+            char_image, (75, 75))  # Creates the charachter and adapts the size
         # Charchters height and width
         self.width = 50
-        self.height = 80
+        self.height = 50
         self.rect = pygame.Rect(0, 0, self.width, self.height)
 
         self.rect.center = (x, y)  # Centers the charchters on the coordinates

@@ -9,8 +9,9 @@ from constants import SCREEN_WIDTH, SCREEN_HEIGHT, WHITE, BLACK, PANEL
 
 pygame.init()
 
-# Game width and height
-SCORE_FILE_PATH = 'data/score.txt'
+# Highscore file path
+SCORE_FILE_PATH = '../data/score.txt'
+FONTS_FILE_PATH = '../fonts'
 # Creates the game window
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('LAMB')
@@ -27,6 +28,12 @@ game_over = False
 score = 0
 fade_counter = 0
 
+# Definerar fontsen
+font_small = font_small = pygame.font.Font(
+    os.path.join("../fonts", "Poppins-SemiBold.ttf"), 20)
+font_big = pygame.font.Font(
+    os.path.join("../fonts", "Poppins-SemiBold.ttf"), 24)
+
 
 # load high_score
 if os.path.exists(SCORE_FILE_PATH):
@@ -34,18 +41,6 @@ if os.path.exists(SCORE_FILE_PATH):
         high_score = int(file.read())
 else:
     high_score = 0
-
-# Defines the colors
-'''
-# Definerar fontsen
-font_small = font_small = pygame.font.Font(
-    os.path.join("./fonts", "Poppins-SemiBold.ttf"), 20)
-font_big = pygame.font.Font(
-    os.path.join("./fonts", "Poppins-SemiBold.ttf"), 24)
-'''
-
-font_small = pygame.font.SysFont('Times New Roman', 20)
-font_big = pygame.font.SysFont('Times New Roman', 24)
 
 # Loads the images
 char_image = pygame.image.load(
