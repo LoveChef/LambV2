@@ -5,13 +5,13 @@ import os
 from player import Player
 from game_platform import Platform
 
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT, WHITE, BLACK, PANEL
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT, WHITE, BLACK, PANEL, SCORE_FILE_PATH, FONTS_FILE_PATH, FONT_NAME
 
 pygame.init()
+# Icon
+icon = pygame.image.load('../assets/charachter.png')
+pygame.display.set_icon(icon)
 
-# Highscore file path
-SCORE_FILE_PATH = '../data/score.txt'
-FONTS_FILE_PATH = '../fonts'
 # Creates the game window
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('LAMB')
@@ -30,9 +30,9 @@ fade_counter = 0
 
 # Definerar fontsen
 font_small = font_small = pygame.font.Font(
-    os.path.join("../fonts", "Poppins-SemiBold.ttf"), 20)
+    os.path.join(FONTS_FILE_PATH, FONT_NAME), 20)
 font_big = pygame.font.Font(
-    os.path.join("../fonts", "Poppins-SemiBold.ttf"), 24)
+    os.path.join(FONTS_FILE_PATH, FONT_NAME), 24)
 
 
 # load high_score
