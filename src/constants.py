@@ -10,10 +10,11 @@ SCREEN_HEIGHT = 600
 # colors
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
-PANEL = BLACK
+PANEL = (37, 37, 37)
 
 # game settings
 GRAVITY = 1
+MAX_PLATFORMS = 10
 
 # file paths
 SCORE_FILE_PATH = '../data/score.txt'

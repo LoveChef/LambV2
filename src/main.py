@@ -1,15 +1,13 @@
 import pygame
 import random
 import os
-
 from player import Player
 from game_platform import Platform
-
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT, WHITE, BLACK, PANEL, SCORE_FILE_PATH, FONTS_FILE_PATH, FONT_NAME
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT, WHITE, BLACK, PANEL, SCORE_FILE_PATH, FONTS_FILE_PATH, FONT_NAME, MAX_PLATFORMS
 
 pygame.init()
 # Icon
-icon = pygame.image.load('../assets/charachter.png')
+icon = pygame.image.load('../assets/icon.png')
 pygame.display.set_icon(icon)
 
 # Creates the game window
@@ -21,7 +19,6 @@ clock = pygame.time.Clock()
 FPS = 60
 
 # Game variables
-MAX_PLATFORMS = 10
 scroll = 0
 bg_scroll = 0
 game_over = False
@@ -33,7 +30,6 @@ font_small = font_small = pygame.font.Font(
     os.path.join(FONTS_FILE_PATH, FONT_NAME), 20)
 font_big = pygame.font.Font(
     os.path.join(FONTS_FILE_PATH, FONT_NAME), 24)
-
 
 # load high_score
 if os.path.exists(SCORE_FILE_PATH):
@@ -48,6 +44,16 @@ char_image = pygame.image.load(
 bg_image = pygame.image.load('../assets/background.jpg').convert_alpha()
 platform_image = pygame.image.load('../assets/platform.png').convert_alpha()
 
+# Creates the sprite for the platforms
+platform_group = pygame.sprite.Group()
+
+# Player instance
+char = Player(SCREEN_WIDTH // 2, SCREEN_HEIGHT - 150, char_image, screen, platform_group)
+
+# Creates platform
+platform = Platform(SCREEN_WIDTH // 2 - 50, SCREEN_HEIGHT -
+                    50, 100, platform_image, False)
+platform_group.add(platform)
 
 # Function that shows the text
 def draw_text(text, font, text_col, x, y) -> None:
@@ -64,18 +70,6 @@ def draw_panel():
 def draw_bg(bg_scroll) -> None:
     screen.blit(bg_image, (0, 0 + bg_scroll))
     screen.blit(bg_image, (0, -600 + bg_scroll))
-
-
-# Creates the sprite for the platforms
-platform_group = pygame.sprite.Group()
-
-# Player instance
-char = Player(SCREEN_WIDTH // 2, SCREEN_HEIGHT - 150, char_image, screen, platform_group)
-
-# Creates platform
-platform = Platform(SCREEN_WIDTH // 2 - 50, SCREEN_HEIGHT -
-                    50, 100, platform_image, False)
-platform_group.add(platform)
 
 # Main loop
 run = True
