@@ -17,8 +17,8 @@ GRAVITY = 1
 MAX_PLATFORMS = 10
 
 # file paths
-SCORE_FILE_PATH = '../data/score.txt'
-FONTS_FILE_PATH = '../fonts'
+SCORE_FILE_PATH = "../data/score.txt"
+FONTS_FILE_PATH = "../fonts"
 
 
 
