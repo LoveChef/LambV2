@@ -140,6 +140,7 @@ while run:
         draw_text('Du förlorade', font_big, WHITE, 130, 200)
         draw_text('Poäng ' + str(score), font_big, WHITE, 130, 250)
         draw_text('Klicka SPACE för att köra igen', font_big, WHITE, 40, 300)
+        draw_text('Klicka ESC för att stänga', font_big, WHITE, 40, 400)
         if score > high_score:
             high_score = score
             with open(SCORE_FILE_PATH, 'w') as file:
@@ -156,6 +157,9 @@ while run:
             platform = Platform(SCREEN_WIDTH // 2 - 50,
                                 SCREEN_HEIGHT - 50, 100, platform_image, False)
             platform_group.add(platform)
+
+        if key[pygame.K_ESCAPE]:
+            break
 
     # Event handler
     for event in pygame.event.get():
