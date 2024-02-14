@@ -14,7 +14,7 @@ class Player:
         self.image = pygame.transform.scale(
             char_image, (75, 75))  # Creates the charachter and adapts the size
         # Charchters height and width
-        self.width = 50
+        self.width = 35
         self.height = 50
         self.rect = pygame.Rect(0, 0, self.width, self.height)
 

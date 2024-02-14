@@ -20,5 +20,4 @@ MAX_PLATFORMS = 10
 SCORE_FILE_PATH = "../data/score.txt"
 FONTS_FILE_PATH = "../fonts"
 
-
-
+ANIMATION_COOLDOWN = 50

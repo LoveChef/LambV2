@@ -7,12 +7,12 @@ from constants import SCREEN_WIDTH, SCREEN_HEIGHT, WHITE, BLACK, PANEL, SCORE_FI
 
 pygame.init()
 # Icon
-icon = pygame.image.load('../assets/icon.png')
+icon = pygame.image.load("../assets/icon.png")
 pygame.display.set_icon(icon)
 
 # Creates the game window
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption('LAMB')
+pygame.display.set_caption("LAMB")
 
 # Updating frequency
 clock = pygame.time.Clock()
@@ -33,16 +33,16 @@ font_big = pygame.font.Font(
 
 # load high_score
 if os.path.exists(SCORE_FILE_PATH):
-    with open(SCORE_FILE_PATH, 'r') as file:
+    with open(SCORE_FILE_PATH, "r") as file:
         high_score = int(file.read())
 else:
     high_score = 0
 
 # Loads the images
 char_image = pygame.image.load(
-    '../assets/charachter.png').convert_alpha()
-bg_image = pygame.image.load('../assets/background.jpg').convert_alpha()
-platform_image = pygame.image.load('../assets/platform.png').convert_alpha()
+    "../assets/charachter.png").convert_alpha()
+bg_image = pygame.image.load("../assets/background.jpg").convert_alpha()
+platform_image = pygame.image.load("../assets/platform.png").convert_alpha()
 
 # Creates the sprite for the platforms
 platform_group = pygame.sprite.Group()
@@ -63,8 +63,7 @@ def draw_text(text, font, text_col, x, y) -> None:
 # Function for info panel
 def draw_panel():
     pygame.draw.rect(screen, PANEL, (0, 0, SCREEN_WIDTH, 30))
-    pygame.draw.line(screen, WHITE, (0, 30), (SCREEN_WIDTH, 30), 2)
-    draw_text('SCORE: ' + str(score), font_small, WHITE, 0, 0)
+    draw_text("Poäng: " + str(score), font_small, WHITE, 0, 0)
 
 # Draws the background
 def draw_bg(bg_scroll) -> None:
@@ -137,13 +136,13 @@ while run:
                     screen, BLACK, (0, y * 100, fade_counter, 100))
                 pygame.draw.rect(
                     screen, BLACK, (SCREEN_WIDTH - fade_counter, (y + 1) * 100, SCREEN_WIDTH, 100))
-        draw_text('Du förlorade', font_big, WHITE, 130, 200)
-        draw_text('Poäng ' + str(score), font_big, WHITE, 130, 250)
-        draw_text('Klicka SPACE för att köra igen', font_big, WHITE, 40, 300)
-        draw_text('Klicka ESC för att stänga', font_big, WHITE, 40, 400)
+        draw_text("Du förlorade", font_big, WHITE, 130, 200)
+        draw_text("Poäng " + str(score), font_big, WHITE, 130, 250)
+        draw_text("Klicka SPACE för att köra igen", font_big, WHITE, 40, 300)
+        draw_text("Klicka ESC för att stänga", font_big, WHITE, 40, 400)
         if score > high_score:
             high_score = score
-            with open(SCORE_FILE_PATH, 'w') as file:
+            with open(SCORE_FILE_PATH, "w") as file:
                 file.write(str(high_score))
         key = pygame.key.get_pressed()
         if key[pygame.K_SPACE]:
@@ -159,7 +158,7 @@ while run:
             platform_group.add(platform)
 
         if key[pygame.K_ESCAPE]:
-            break
+            run = False
 
     # Event handler
     for event in pygame.event.get():
@@ -169,7 +168,7 @@ while run:
             # update high_score
             if score > high_score:
                 high_score = score
-                with open(SCORE_FILE_PATH, 'w') as file:
+                with open(SCORE_FILE_PATH, "w") as file:
                     file.write(str(high_score))
 
     pygame.display.update()
