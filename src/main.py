@@ -4,6 +4,7 @@ import os
 from player import Player
 from game_platform import Platform
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT, WHITE, BLACK, PANEL, SCORE_FILE_PATH, FONTS_FILE_PATH, FONT_NAME, MAX_PLATFORMS
+from sprite import Spritesheet
 from enemy import Enemy
 
 pygame.init()
@@ -40,10 +41,12 @@ else:
     high_score = 0
 
 # Loads the images
-char_image = pygame.image.load(
-    "../assets/charachter.png").convert_alpha()
+char_image = pygame.image.load("../assets/charachter.png").convert_alpha()
 bg_image = pygame.image.load("../assets/background.jpg").convert_alpha()
 platform_image = pygame.image.load("../assets/platform.png").convert_alpha()
+bird_img = pygame.image.load("../assets/enemy_spritesheet.png").convert_alpha()
+bird_sheet = Spritesheet(bird_img)
+
 
 # Creates the sprite for the platforms
 platform_group = pygame.sprite.Group()
@@ -65,7 +68,7 @@ def draw_text(text, font, text_col, x, y) -> None:
 # Function for info panel
 def draw_panel():
     pygame.draw.rect(screen, PANEL, (0, 0, SCREEN_WIDTH, 30))
-    draw_text("Poäng: " + str(score), font_small, WHITE, 0, 0)
+    draw_text("Poäng: " + str(score), font_small, WHITE, 150, 0)
 
 # Draws the background
 def draw_bg(bg_scroll) -> None:
@@ -129,10 +132,11 @@ while run:
             # Updates the platforms the further you go up
             platform_group.update(scroll)
 
-            if len(enemy_group) == 0 and score > 5000:
-                enemy = Enemy(SCREEN_WIDTH, 100)
+            if len(enemy_group) == 0 and score > 200:
+                enemy = Enemy(SCREEN_WIDTH, 100, bird_sheet, 1.5)
                 enemy_group.add(enemy)
 
+            enemy_group.update(scroll, SCREEN_WIDTH)
 
             # Update score
             if scroll > 0:
@@ -140,29 +144,27 @@ while run:
             print(score)
             # Draws the sprites
             platform_group.draw(screen)
+            enemy_group.draw(screen)
             char.draw()
-
+            
             draw_panel()
 
             # Checks if the game is over
             if char.rect.top > SCREEN_HEIGHT:
                 game_over = True
+            if pygame.sprite.spritecollide(char, enemy_group, False):
+                if pygame.sprite.spritecollide(char, enemy_group, False, pygame.sprite.collide_mask):
+                    game_over = True
+
         else:
-            if fade_counter < SCREEN_WIDTH:
-                fade_counter += 5
-                for y in range(0, 6, 2):
-                    pygame.draw.rect(
-                        screen, BLACK, (0, y * 100, fade_counter, 100))
-                    pygame.draw.rect(
-                        screen, BLACK, (SCREEN_WIDTH - fade_counter, (y + 1) * 100, SCREEN_WIDTH, 100))
             draw_text("Du förlorade", font_big, WHITE, 130, 200)
             draw_text("Poäng " + str(score), font_big, WHITE, 130, 250)
-            draw_text("Klicka SPACE för att köra igen", font_big, WHITE, 40, 300)
-            draw_text("Klicka ESC för att stänga", font_big, WHITE, 40, 400)
+            draw_text("Klicka SPACE för att köra igen", font_big, WHITE, 130, 300)
+            draw_text("Klicka ESC för att stänga", font_big, WHITE, 130, 400)
             if score > high_score:
                 high_score = score
                 with open(SCORE_FILE_PATH, "w") as file:
-                    file.write(str(high_score))
+                    file.write(str(high_score)) 
             key = pygame.key.get_pressed()
             if key[pygame.K_SPACE]:
                 # Resets the platforms when the game is over
@@ -171,6 +173,7 @@ while run:
                 scroll = 0
                 fade_counter = 0
                 char.rect.center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT - 150)
+                enemy_group.empty()
                 platform_group.empty()
                 platform = Platform(SCREEN_WIDTH // 2 - 50,
                                     SCREEN_HEIGHT - 50, 100, platform_image, False)

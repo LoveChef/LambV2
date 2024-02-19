@@ -25,7 +25,7 @@ class Enemy(pygame.sprite.Sprite):
 
         animation_steps = 8
         for animation in range(animation_steps):
-            image = sprite_sheet.get_image(animation, 32, 32, scale, (0, 0, 0))
+            image = sprite_sheet.get_image(animation, 1200, 1200, scale, (0, 0, 0))
             image = pygame.transform.flip(image, self.flip, False)
             image.set_colorkey((0, 0, 0))
             self.animation_list.append(image)
@@ -41,7 +41,7 @@ class Enemy(pygame.sprite.Sprite):
 
     def update(self, scroll, SCREEN_WIDTH):
         """
-        Uppdaterar fiendens position och animationen.
+        Uppdaterar fiendens position och animationen.z
 
             Args:
                 scroll (int) : Scrollhastigheten i spelet.
