@@ -46,6 +46,7 @@ bg_image = pygame.image.load("../assets/background.jpg").convert_alpha()
 platform_image = pygame.image.load("../assets/platform.png").convert_alpha()
 bird_img = pygame.image.load("../assets/enemy_spritesheet.png").convert_alpha()
 bird_sheet = Spritesheet(bird_img)
+score_image = pygame.image.load("../assets/score_charachter.png")
 
 
 # Creates the sprite for the platforms
@@ -83,6 +84,9 @@ def show_start_screen():
 start_screen = True
 
 # Main loop
+
+image_change = 0
+
 run = True
 while run:
     clock.tick(FPS)
@@ -94,6 +98,16 @@ while run:
                 start_screen = False  
     else:
         if game_over == False:
+            if scroll > 0:
+                score+=scroll
+            if score == 1500:
+                image_change = 1
+
+            if image_change == 1:
+                screen.blit(score_image, (p_x, p_y))
+                pygame.display.update()
+                pygame.time.delay(10000)  # 1000 ms = 1 sekund
+                image_change = 0
             scroll = char.move()    
 
             # Draws the background in the window
