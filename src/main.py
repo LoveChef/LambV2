@@ -47,6 +47,9 @@ platform_image = pygame.image.load("../assets/platform.png").convert_alpha()
 bird_img = pygame.image.load("../assets/enemy_spritesheet.png").convert_alpha()
 bird_sheet = Spritesheet(bird_img)
 
+# Music
+pygame.mixer.music.load("../assets/music.mp3")
+
 
 # Creates the sprite for the platforms
 platform_group = pygame.sprite.Group()
@@ -82,25 +85,37 @@ def show_start_screen():
 
 start_screen = True
 
+music_playing = False
+
 # Main loop
 run = True
 while run:
     clock.tick(FPS)
-
     if start_screen:
         show_start_screen()
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONDOWN:
-                start_screen = False  
+                start_screen = False
+                
+        
+
     else:
+        if not music_playing:
+            
+            music_playing = True
+
+
         if game_over == False:
-            scroll = char.move()    
+            pygame.mixer.music.play(-1)
+            scroll = char.move()
+            
 
             # Draws the background in the window
             bg_scroll += scroll
             if bg_scroll >= 600:
                 bg_scroll = 0
             draw_bg(bg_scroll)
+            
 
             # Generates the platform the charachter jumps on
             if len(platform_group) < MAX_PLATFORMS:
@@ -155,6 +170,7 @@ while run:
             if pygame.sprite.spritecollide(char, enemy_group, False):
                 if pygame.sprite.spritecollide(char, enemy_group, False, pygame.sprite.collide_mask):
                     game_over = True
+            
 
         else:
             draw_text("Du förlorade", font_big, WHITE, 130, 200)
