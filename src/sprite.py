@@ -1,7 +1,7 @@
 import pygame
 
 class Spritesheet():
-	def __init__(self, image):
+	def __init__(self, image): # Animates the bird using a spritesheet
 		self.sheet = image
 
 	def get_image(self, frame, width, height, scale, colour):

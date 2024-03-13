@@ -16,7 +16,7 @@ class Enemy(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.animation_list = []
         self.frame_index = 0
-        self.update_time = pygame.time.get_ticks()
+        self.update_time = pygame.time.get_ticks() - 500       
         self.direction = random.choice([-1, 1])
         if self.direction == 1:
             self.flip = True
@@ -25,7 +25,7 @@ class Enemy(pygame.sprite.Sprite):
 
         animation_steps = 8
         for animation in range(animation_steps):
-            image = sprite_sheet.get_image(animation, 1200, 1200, scale, (0, 0, 0))
+            image = sprite_sheet.get_image(animation, 120, 120, scale, (0, 0, 0))
             image = pygame.transform.flip(image, self.flip, False)
             image.set_colorkey((0, 0, 0))
             self.animation_list.append(image)
@@ -35,8 +35,12 @@ class Enemy(pygame.sprite.Sprite):
 
         if self.direction == 1:
             self.rect.x = 0
+            self.start_pos = 0
+            self.end_pos = SCREEN_WIDTH
         else:
             self.rect.x = SCREEN_WIDTH
+            self.start_pos = SCREEN_WIDTH
+            self.end_pos = 0
         self.rect.y = y
 
     def update(self, scroll, SCREEN_WIDTH):
@@ -44,18 +48,20 @@ class Enemy(pygame.sprite.Sprite):
         Uppdaterar fiendens position och animationen.z
 
             Args:
-                scroll (int) : Scrollhastigheten i spelet.
-                param SCREEN_WIDTH (int): Bredden på spelområdet.
+                scroll är scrollhastigheten i spelet.
+                screen_width är bredden på spelområdet.
         """
+        self.rect.x += self.direction * 2
+
         self.image = self.animation_list[self.frame_index]
         if pygame.time.get_ticks() - self.update_time > ANIMATION_COOLDOWN:
             self.update_time = pygame.time.get_ticks()
             self.frame_index += 1
-        if self.frame_index >= len(self.animation_list):
-            self.frame_index = 0
+            if self.frame_index >= len(self.animation_list):
+                self.frame_index = 0
 
         self.rect.x += self.direction * 2
         self.rect.y += scroll
-
+    
         if self.rect.right < 0 or self.rect.left > SCREEN_WIDTH:
             self.kill()

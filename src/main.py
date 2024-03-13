@@ -99,7 +99,7 @@ while run:
         
 
     else:
-        if not music_playing:
+        if not music_playing: # Starts the music and loops it
             pygame.mixer.music.play(-1)
             music_playing = True
 
@@ -192,6 +192,10 @@ while run:
                 platform = Platform(SCREEN_WIDTH // 2 - 50,
                                     SCREEN_HEIGHT - 50, 100, platform_image, False)
                 platform_group.add(platform)
+
+                if not music_playing:
+                    pygame.mixer.music.play(-1)
+                    music_playing = True
 
             if key[pygame.K_ESCAPE]:
                 run = False
