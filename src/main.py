@@ -50,7 +50,6 @@ bird_sheet = Spritesheet(bird_img)
 # Music
 pygame.mixer.music.load("../assets/music.mp3")
 
-
 # Creates the sprite for the platforms
 platform_group = pygame.sprite.Group()
 enemy_group = pygame.sprite.Group()
@@ -101,14 +100,12 @@ while run:
 
     else:
         if not music_playing:
-            
+            pygame.mixer.music.play(-1)
             music_playing = True
 
 
         if game_over == False:
-            pygame.mixer.music.play(-1)
             scroll = char.move()
-            
 
             # Draws the background in the window
             bg_scroll += scroll
@@ -173,6 +170,7 @@ while run:
             
 
         else:
+            pygame.mixer.music.stop()
             draw_text("Du förlorade", font_big, WHITE, 130, 200)
             draw_text("Poäng " + str(score), font_big, WHITE, 130, 250)
             draw_text("Klicka SPACE för att köra igen", font_big, WHITE, 130, 300)
