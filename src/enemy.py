@@ -4,6 +4,7 @@ from constants import ANIMATION_COOLDOWN
 
 class Enemy(pygame.sprite.Sprite):
     def __init__(self, SCREEN_WIDTH, y, sprite_sheet, scale):
+        print(f"Initial enemy y: {y}")
         """
         Creates a new instance of the enemy class
 
@@ -13,11 +14,13 @@ class Enemy(pygame.sprite.Sprite):
                 sprite_sheet (objekt) : The sprite sheet that contains the enemy animations.
                 scale (float) : Scaling of the enmemy image.
         """
+        
         pygame.sprite.Sprite.__init__(self)
         self.animation_list = []
         self.frame_index = 0
-        self.update_time = pygame.time.get_ticks() - 500       
+        self.update_time = pygame.time.get_ticks()       
         self.direction = random.choice([-1, 1])
+        
         if self.direction == 1:
             self.flip = True
         else:
@@ -25,7 +28,7 @@ class Enemy(pygame.sprite.Sprite):
 
         animation_steps = 8
         for animation in range(animation_steps):
-            image = sprite_sheet.get_image(animation, 120, 120, scale, (0, 0, 0))
+            image = sprite_sheet.get_image(animation, 500, 500, scale, (0, 0, 0))
             image = pygame.transform.flip(image, self.flip, False)
             image.set_colorkey((0, 0, 0))
             self.animation_list.append(image)
@@ -41,7 +44,7 @@ class Enemy(pygame.sprite.Sprite):
             self.rect.x = SCREEN_WIDTH
             self.start_pos = SCREEN_WIDTH
             self.end_pos = 0
-        self.rect.y = y
+            self.rect.y = y
 
     def update(self, scroll, SCREEN_WIDTH):
         """

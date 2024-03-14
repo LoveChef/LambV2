@@ -143,17 +143,22 @@ while run:
 
             # Updates the platforms the further you go up
             platform_group.update(scroll)
-
-            if len(enemy_group) == 0 and score > 200:
-                enemy = Enemy(SCREEN_WIDTH, 100, bird_sheet, 1.5)
+            # 
+            if len(enemy_group) == 0 and score == 10:
+                player_height = char.rect.height
+                enemy = Enemy(SCREEN_WIDTH, 50, bird_sheet, 1.5)
+                enemy.rect.y = char.rect.height + 10
                 enemy_group.add(enemy)
+        
 
             enemy_group.update(scroll, SCREEN_WIDTH)
 
             # Update score
-            if scroll > 0:
-                score += scroll
-            print(score)
+            if pygame.sprite.spritecollide(char, platform_group, False):
+                if not platform.point_given:  # checks if the platform has already given the point for that platform
+                    score += 1
+                    platform.point_given = True 
+            #print(score)
             # Draws the sprites
             platform_group.draw(screen)
             enemy_group.draw(screen)

@@ -11,12 +11,13 @@ class Platform(pygame.sprite.Sprite):
         y (int): The y coordinate for the platform
         width (int): The width of the platform
     """
-    def __init__(self, x, y, width, platform_image, moving) -> None:
+    def __init__(self, x, y, width, platform_image, moving, point_given=False) -> None:
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.transform.scale(platform_image, (width, 10))
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
+        self.point_given = False
 
         # Moving platform variables
         self.moving = moving
