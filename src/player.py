@@ -7,9 +7,9 @@ class Player:
         """Initialze the player
 
         Args:
-            x (int): The x coordinate of the player
-            y (int): The y coordinate of the player
-            platform_group (platform.sprite.group): The group including the platform sprites
+            x : The x coordinate of the player
+            y : The y coordinate of the player
+            platform_group : The group including the platform sprites
         """
         self.image = pygame.transform.scale(
             char_image, (75, 75))  # Creates the charachter and adapts the size

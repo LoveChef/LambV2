@@ -7,9 +7,9 @@ class Platform(pygame.sprite.Sprite):
     """Class for platforms 
 
     Args:
-        x (int): The x coordinate for the platform
-        y (int): The y coordinate for the platform
-        width (int): The width of the platform
+        x : The x coordinate for the platform
+        y : The y coordinate for the platform
+        width : The width of the platform
     """
     def __init__(self, x, y, width, platform_image, moving, point_given=False) -> None:
         pygame.sprite.Sprite.__init__(self)
@@ -29,7 +29,7 @@ class Platform(pygame.sprite.Sprite):
         """Update the platforms position
 
         Args:
-            scroll (int): The verticial scrolling value
+            scroll: The verticial scrolling value
         """
         # Platform movement
         if self.moving == True:

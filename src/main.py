@@ -119,7 +119,7 @@ while run:
                 p_w = random.randint(60, 80)
                 p_x = random.randint(0, SCREEN_WIDTH - p_w)
                 p_y = platform.rect.y - random.randint(80, 120)
-                # Determines if platformi is moving
+                # Determines if platform is moving
                 p_type = random.randint(1, 5)
                 print(p_type)
                 # Checks if platform is movable, the higher up the more platforms can move
@@ -143,7 +143,7 @@ while run:
 
             # Updates the platforms the further you go up
             platform_group.update(scroll)
-            # 
+        
             if len(enemy_group) == 0 and score == 10:
                 player_height = char.rect.height
                 enemy = Enemy(SCREEN_WIDTH, 50, bird_sheet, 1.5)
