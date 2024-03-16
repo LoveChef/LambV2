@@ -12,6 +12,16 @@ class Platform(pygame.sprite.Sprite):
         width : The width of the platform
     """
     def __init__(self, x, y, width, platform_image, moving, point_given=False) -> None:
+        """Initialze the platform
+
+        Args:
+            x : x cord
+            y : y cord
+            width: With of platfomr
+            platform_image : img
+            moving: Whether a platform should move
+            point_given: Whether a point has been awarded when landing on a platform
+        """
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.transform.scale(platform_image, (width, 10))
         self.rect = self.image.get_rect()
