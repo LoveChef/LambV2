@@ -119,21 +119,19 @@ while run:
                 p_w = random.randint(60, 80)
                 p_x = random.randint(0, SCREEN_WIDTH - p_w)
                 p_y = platform.rect.y - random.randint(80, 120)
-                # Determines if platform is moving
                 p_type = random.randint(1, 5)
-                print(p_type)
                 # Checks if platform is movable, the higher up the more platforms can move
-                # 100% that it moves
-                if p_type in [1, 2, 3, 4, 5] and score > 20000:
+                # 100% # Below the percentages repersent how high the percentage that the platforsms will move
+                if p_type in [1, 2, 3, 4, 5] and score > 200:
                     p_moving = True
                 # 80%
-                elif  p_type in [1, 2, 3, 4] and score > 10000:
+                elif  p_type in [1, 2, 3, 4] and score > 100:
                     p_moving = True
                 # 40%
-                elif p_type in [1, 2] and score > 3000:
+                elif p_type in [1, 2] and score > 75:
                     p_moving = True
                 # 20%
-                elif p_type == 1 and score > 500:
+                elif p_type == 1 and score > 50:
                     p_moving = True
                 else:
                     p_moving = False
@@ -158,7 +156,7 @@ while run:
                 if not platform.point_given:  # checks if the platform has already given the point for that platform
                     score += 1
                     platform.point_given = True 
-            #print(score)
+        
             # Draws the sprites
             platform_group.draw(screen)
             enemy_group.draw(screen)
@@ -178,8 +176,8 @@ while run:
             pygame.mixer.music.stop()
             draw_text("Du förlorade", font_big, WHITE, 130, 200)
             draw_text("Poäng " + str(score), font_big, WHITE, 130, 250)
-            draw_text("Klicka SPACE för att köra igen", font_big, WHITE, 130, 300)
-            draw_text("Klicka ESC för att stänga", font_big, WHITE, 130, 400)
+            draw_text("Klicka SPACE för att köra igen", font_big, WHITE, 25, 300)
+            draw_text("Klicka ESC för att stänga", font_big, WHITE, 45, 400)
             if score > high_score:
                 high_score = score
                 with open(SCORE_FILE_PATH, "w") as file:

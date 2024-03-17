@@ -4,7 +4,6 @@ from constants import ANIMATION_COOLDOWN
 
 class Enemy(pygame.sprite.Sprite):
     def __init__(self, SCREEN_WIDTH, y, sprite_sheet, scale):
-        print(f"Initial enemy y: {y}")
         """
         Creates a new instance of the enemy class
 
