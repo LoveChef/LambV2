@@ -205,6 +205,7 @@ while run:
                 platform = Platform(SCREEN_WIDTH // 2 - 50,
                                     SCREEN_HEIGHT - 50, 100, platform_image, False)
                 platform_group.add(platform)
+                pygame.mixer.music.play(-1)
 
                 if not music_playing:
                     pygame.mixer.music.play(-1)
