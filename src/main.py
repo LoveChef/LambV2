@@ -154,6 +154,9 @@ while run:
 
             # Sound that plays when  the player earns a point
             score_sound = pygame.mixer.Sound("../assets/coin.mp3")
+            
+            #Sound that plays whenever the player losees
+            lose_sound = pygame.mixer.Sound("../assets/lose.wav")
 
             # Update score
             if pygame.sprite.spritecollide(char, platform_group, False):
@@ -172,9 +175,11 @@ while run:
             # Checks if the game is over
             if char.rect.top > SCREEN_HEIGHT:
                 game_over = True
+                lose_sound.play()
             if pygame.sprite.spritecollide(char, enemy_group, False):
                 if pygame.sprite.spritecollide(char, enemy_group, False, pygame.sprite.collide_mask):
                     game_over = True
+                    lose_sound.play()
             
 
         else:
