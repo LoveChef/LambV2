@@ -77,6 +77,7 @@ def draw_bg(bg_scroll) -> None:
     screen.blit(bg_image, (0, 0 + bg_scroll))
     screen.blit(bg_image, (0, -600 + bg_scroll))
 
+
 def show_start_screen():
     start_screen_image = pygame.image.load("../assets/startscreen.png").convert_alpha()
     screen.blit(start_screen_image, (0, 0))
@@ -151,11 +152,15 @@ while run:
 
             enemy_group.update(scroll, SCREEN_WIDTH)
 
+            # Sound that plays when  the player earns a point
+            score_sound = pygame.mixer.Sound("../assets/coin.mp3")
+
             # Update score
             if pygame.sprite.spritecollide(char, platform_group, False):
                 if not platform.point_given:  # checks if the platform has already given the point for that platform
                     score += 1
                     platform.point_given = True 
+                    score_sound.play() # playes the score sound
         
             # Draws the sprites
             platform_group.draw(screen)
