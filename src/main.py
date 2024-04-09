@@ -177,7 +177,7 @@ while run:
                 game_over = True
                 lose_sound.play()
             if pygame.sprite.spritecollide(char, enemy_group, False):
-                if pygame.sprite.spritecollide(char, enemy_group, False, pygame.sprite.collide_mask):
+                if pygame.sprite.spritecollide(char, enemy_group, False, pygame.sprite.collide_mask): 
                     game_over = True
                     lose_sound.play()
             
