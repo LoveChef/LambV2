@@ -29,7 +29,7 @@ class Enemy(pygame.sprite.Sprite):
         animation_steps = 8 #total img/frames
         for animation in range(animation_steps):
             # Enemy img size + transperent
-            image = sprite_sheet.get_image(animation, 500, 500, 2, (0, 0, 0))
+            image = sprite_sheet.get_image(animation, 1200, 1200, 0.06, (0, 0, 0))
             image = pygame.transform.flip(image, self.flip, False) #flip img
             image.set_colorkey((0, 0, 0)) #transparent
             self.animation_list.append(image)
