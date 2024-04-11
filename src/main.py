@@ -143,11 +143,11 @@ while run:
             # Updates the platforms the further you go up
             platform_group.update(scroll)
         
-            if len(enemy_group) == 0 and score == 10:
+            if score == 10 and len(enemy_group) == 0:  # Check for score and no existing enemies
                 player_height = char.rect.height
-                enemy = Enemy(SCREEN_WIDTH, 50, bird_sheet, 1.5)
-                enemy.rect.y = char.rect.height + 10
-                enemy_group.add(enemy)
+                enemy = Enemy(SCREEN_WIDTH, 5, bird_sheet, 0.5)  # Create enemy
+                enemy.rect.y = char.rect.top - enemy.rect.height  # Position above character
+                enemy_group.add(enemy)  # Add enemy to group
         
 
             enemy_group.update(scroll, SCREEN_WIDTH)
