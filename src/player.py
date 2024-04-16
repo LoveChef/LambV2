@@ -48,6 +48,12 @@ class Player:
         if key[pygame.K_d]:
             dx = 10
             self.flip = True
+        if key[pygame.K_LEFT]:
+            dx = -10
+            self.flip = False
+        if key[pygame.K_RIGHT]:
+            dx = 10
+            self.flip = True
 
         # The games gravity
         self.vel_y += GRAVITY
