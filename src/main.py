@@ -158,12 +158,14 @@ while run:
             lose_sound = pygame.mixer.Sound("../assets/lose.wav")
 
             # Update score
-            if pygame.sprite.spritecollide(char, platform_group, False):
-                if not platform.point_given:  # checks if the platform has already given the point for that platform
-                    score += 1
-                    platform.point_given = True 
-                    score_sound.play() # playes the score sound
-        
+            
+            for platform in platform_group:
+                if pygame.sprite.collide_rect(char, platform):
+                    if not platform.point_given:
+                        score += 1
+                        platform.point_given = True
+                        score_sound.play()
+
             # Draws the sprites
             platform_group.draw(screen)
             enemy_group.draw(screen)
