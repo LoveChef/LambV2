@@ -82,6 +82,8 @@ class Player:
         self.rect.x += dx
         self.rect.y += dy + scroll
 
+        self.mask = pygame.mask.from_surface(self.image)
+
         return scroll
 
     def draw(self) -> None:
